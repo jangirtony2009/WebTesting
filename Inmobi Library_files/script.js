@@ -27,7 +27,7 @@ function loadInterstitialAd() {
   adInstance?.onAdLoadSucceeded((requestId) => {
     console.log('onAdLoadSucceeded!!', requestId);
     // Optionally, you can call the showInterstitialAd function here if desired
-    document.getElementById("console-log").innerHTML += `Interstitial : Ad Loaded!!! Yipeee!! ${requestId}<br>`;
+    document.getElementById("console-log").innerHTML += `Interstitial : Ad Loaded!!! Yipeee!! ${JSON.stringify(requestId)}<br>`;
     adInstance.show();
   });
 
@@ -36,7 +36,7 @@ function loadInterstitialAd() {
     });
 
     adInstance?.onAdClicked((requestId) => {
-      document.getElementById("console-log").innerHTML += `Interstitial : Ad Load Clicked!!! Yipeee!! ${requestId}<br>`;
+      document.getElementById("console-log").innerHTML += `Interstitial : Ad Load Clicked!!! Yipeee!! ${JSON.stringify(requestId)}<br>`;
     });
 
     adInstance.onAdImpression((info) => {
@@ -58,7 +58,7 @@ function loadBanner() {
   adInstance?.onAdLoadSucceeded((requestId) => {
     console.log('onAdLoadSucceeded!!', requestId);
     // Optionally, you can call the showInterstitialAd function here if desired
-    document.getElementById("console-log").innerHTML += `Banner :  Ad Loaded!!! Yipeee!! ${requestId}<br>`;
+    document.getElementById("console-log").innerHTML += `Banner :  Ad Loaded!!! Yipeee!! ${JSON.stringify(requestId)}<br>`;
   });
 
    adInstance?.onAdLoadFailed((error) => {
@@ -66,7 +66,7 @@ function loadBanner() {
     });
 
     adInstance?.onAdClicked((requestId) => {
-      document.getElementById("console-log").innerHTML += `Banner : Ad Load Clicked!!! Yipeee!! ${requestId}<br>`;
+      document.getElementById("console-log").innerHTML += `Banner : Ad Load Clicked!!! Yipeee!! ${JSON.stringify(requestId)}<br>`;
     });
 
     adInstance.onAdImpression((info) => {
