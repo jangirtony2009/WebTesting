@@ -9,6 +9,7 @@
   mesonWebClient.init();
 
   mesonWebClient.onSDKInitSuccess(() => {
+    document.getElementById("console-log").innerHTML += `MesonSDK : 😎 SDK is successfully initialized 😎<br>`;
     console.log(`😎 SDK is successfully initialized 😎`);
   });
 
@@ -26,50 +27,66 @@ function loadInterstitialAd() {
   adInstance?.onAdLoadSucceeded((requestId) => {
     console.log('onAdLoadSucceeded!!', requestId);
     // Optionally, you can call the showInterstitialAd function here if desired
+    document.getElementById("console-log").innerHTML += `Interstitial : Ad Loaded!!! Yipeee!! ${requestId}<br>`;
     adInstance.show();
   });
 
-  adInstance?.onAdLoadFailed((error) => {
-    console.log('Load failed received on client side', error);
-  });
+   adInstance?.onAdLoadFailed((error) => {
+      document.getElementById("console-log").innerHTML += `Interstitial : Load failed received on client side: ${JSON.stringify(error)}<br>`;
+    });
 
-  adInstance?.onAdClicked((requestId) => {
-    console.log('Ad Load Clicked!!! Yipeee!!', requestId);
-  });
+    adInstance?.onAdClicked((requestId) => {
+      document.getElementById("console-log").innerHTML += `Interstitial : Ad Load Clicked!!! Yipeee!! ${requestId}<br>`;
+    });
 
-  adInstance.onAdImpression((info) => {
-    console.log('onAdImpression ==>', info);
-  });
+    adInstance.onAdImpression((info) => {
+      document.getElementById("console-log").innerHTML += `Interstitial : onAdImpression ==> ${JSON.stringify(info)}<br>`;
+    });
 
-  adInstance.onAdDismissed((info) => {
-    console.log('onAdDismissed ==>', info);
-  });
+    adInstance.onAdDismissed((info) => {
+      document.getElementById("console-log").innerHTML += `Interstitial : onAdDismissed ==> ${JSON.stringify(info)}<br>`;
+    });
 
   adInstances.push(adInstance);
 }
 
-function showInterstitialAd(index) {
-  if (adInstances[index]) {
-    adInstances[index].show();
-  } else {
-    console.log('No interstitial ad instance available.');
-  }
-}
+function loadBanner() {
+  const config = getMockConfig();
+  const adInstance = mesonWebClient.getBannerAd(config);
+  adInstance?.load();
 
+  adInstance?.onAdLoadSucceeded((requestId) => {
+    console.log('onAdLoadSucceeded!!', requestId);
+    // Optionally, you can call the showInterstitialAd function here if desired
+    document.getElementById("console-log").innerHTML += `Banner :  Ad Loaded!!! Yipeee!! ${requestId}<br>`;
+  });
+
+   adInstance?.onAdLoadFailed((error) => {
+      document.getElementById("console-log").innerHTML += `Banner : Load failed received on client side: ${JSON.stringify(error)}<br>`;
+    });
+
+    adInstance?.onAdClicked((requestId) => {
+      document.getElementById("console-log").innerHTML += `Banner : Ad Load Clicked!!! Yipeee!! ${requestId}<br>`;
+    });
+
+    adInstance.onAdImpression((info) => {
+      document.getElementById("console-log").innerHTML += `Banner : onAdImpression ==> ${JSON.stringify(info)}<br>`;
+    });
+}
 
 
 // Helper method to get the mock configuration
 function getMockConfig() {
   return {
-    adUnitId: '06053301-b3f5-4a8d-bb75-12ceb0e957d9',
-    gpid: '0512701e-ea36-4fb4-bd00-10ca1ad1abe1',
+    adUnitId: document.getElementById("adUnitId").value,
+    gpid: document.getElementById("gpid").value,
     userAgent: window.navigator.userAgent,
-    bundleId: 'com.miui.android.fashiongallery',
+    bundleId: document.getElementById("bundleId").value,
     refreshInterval: 0,
     overRideRedirect: false,
-    width: 200,
-    height: 180,
-    containerId: 'c1-ele',
+    width: parseInt(document.getElementById("width").value),
+    height: parseInt(document.getElementById("height").value),
+    containerId: 'bannerAdContainer',
     device: {
       lmt: 1,
     },
