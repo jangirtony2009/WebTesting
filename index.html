@@ -23,8 +23,9 @@
       justify-content: center;
       height: 100vh;
       text-align: center;
-      background-color: rgba(255, 255, 255, 0.8); /* Background color with transparency */
+      background-color: black; /* Background color with transparency */
       padding: 20px;
+      opacity: 0.7;
     }
 
     .container div {
@@ -32,36 +33,77 @@
     }
 
     button {
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: bold;
       background-color: #4CAF50;
       color: #fff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .ad-settings,
-    .size-control {
+    button:hover {
+      background-color: #45a049;
+    }
+
+   .ad-settings,
+  .size-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .ad-settings label,
+  .size-control label {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    width: 150px;
+    text-align: right;
+  }
+
+  .ad-settings input,
+  .size-control input {
+    flex: 1 1 auto;
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+    .c1 {
+      width: 100%;
+      height: auto;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 20px;
+      align-items: center;
     }
 
-    .ad-settings label,
-    .size-control label {
-      margin-right: 10px;
-      align-items: flex-start;
-    }
+   #bannerAdContainer {
+    margin-top: 20px;
+    width: 320px;
+    height: 50px;
+    background-color: #f2f2f2;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #888;
+  }
 
-    .ad-settings input,
-    .size-control input {
-      align-items: flex-start;
-      width: 250px;
-      padding: 5px;
-      font-size: 14px;
-      margin-bottom: 10px;
+    #console-log {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #fff;
     }
   </style>
 </head>
@@ -71,48 +113,44 @@
   <script src="./Inmobi Library_files/script.js"></script>
   <div class="container">
     <div>
-      <h1>Meson Web Client</h1>
-    </div>
-
- <div class="container">
-    <div class="ad-settings">
-      <label for="adUnitId">Ad Unit ID:</label><br>
-      <input type="text" id="adUnitId" value="06053301-b3f5-4a8d-bb75-12ceb0e957d9"><br>
+      <h1 style="font-size: 32px; font-weight: bold; color: #fff;">Meson Web Client</h1>
     </div>
 
     <div class="ad-settings">
-    <label for="gpid">GPID:</label><br>
-      <input type="text" id="gpid" value="0512701e-ea36-4fb4-bd99-10ca1ad1abe1"><br>
-      
+      <label for="adUnitId">Ad Unit ID:</label>
+      <input type="text" id="adUnitId" value="06053301-b3f5-4a8d-bb75-12ceb0e957d9">
     </div>
-     <div class="ad-settings">
-    <label for="bundleId">Bundle ID:</label><br>
+
+    <div class="ad-settings">
+      <label for="gpid">GPID:</label>
+      <input type="text" id="gpid" value="0512701e-ea36-4fb4-bd99-10ca1ad1abe1">
+    </div>
+
+    <div class="ad-settings">
+      <label for="bundleId">Bundle ID:</label>
       <input type="text" id="bundleId" value="com.miui.android.fashiongallery">
-    </div>
-     <div class="ad-settings">
-
     </div>
 
     <div class="size-control">
       <label for="width">Banner Width:</label>
       <input type="number" id="width" value="320">
     </div>
+    
     <div class="size-control">
       <label for="height">Banner Height:</label>
-      <input type="number" id="height" value="250">
+      <input type="number" id="height" value="50">
     </div>
-    <p> Here Ad Will show</p>
-      <div class="c1" id="bannerAdContainer">
-    </div>
-    <button onclick="loadBanner()">Load Banner Ad</button><br><br>
+    
+    <p style="font-size: 18px; color: #fff;">Here Ad Will Show</p>
+    
+    <div class="c1" id="bannerAdContainer"></div>
+    
+    <button onclick="loadBanner()">Load Banner Ad</button>
+    <br><br>
+    
     <button onclick="loadInterstitialAd()">Load Interstitial Ad</button>
-    <br>
+    
     <div class="ad-settings" id="console-log"></div>
   </div>
-    
-    
-  </div>
-
-
 </body>
 </html>
