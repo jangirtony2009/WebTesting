@@ -51,6 +51,7 @@ function loadInterstitialAd() {
 }
 
 function loadBanner() {
+  updateBannerConatiner()
   const config = getMockConfig();
   const adInstance = mesonWebClient.getBannerAd(config);
   adInstance?.load();
@@ -90,5 +91,16 @@ function getMockConfig() {
     device: {
       lmt: 1,
     },
+  }}
+
+function updateBannerConatiner() {
+       var widthInput = document.getElementById("width");
+      var heightInput = document.getElementById("height");
+      var bannerContainer = document.getElementById("bannerAdContainer");
+
+      var width = parseInt(widthInput.value);
+      var height = parseInt(heightInput.value);
+
+      bannerContainer.style.width = width + "px";
+      bannerContainer.style.height = height + "px";
   };
-}
