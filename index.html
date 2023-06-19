@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-gray-100">
 <head>
@@ -52,6 +54,17 @@
           <div class="space-y-12">
             <div class="pb-12">
               <div class="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+              <div class="sm:col-span-4">
+                  <label for="adFormatID" class="block text-sm font-medium leading-6 text-gray-900">Select Ad Format</label>
+                  <div class="mt-2">
+                              <label for="adType" class="text-white">Ad Type:</label>
+            <select id="adType" name="adType" class="ml-2 rounded-md px-2 py-1 bg-gray-200 text-gray-800">
+              <option value="banner">Banner</option>
+              <option value="interstitial">Interstitial</option>
+              <option value="rewarded">Rewarded</option>
+            </select>
+                  </div>
+                </div>
                 <div class="sm:col-span-4">
                   <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Ad Unit ID</label>
                   <div class="mt-2">
@@ -79,7 +92,7 @@
                   </div>
                 </div>
 
-                <div class="sm:col-span-4">
+                <div class="sm:col-span-4" id="WidthDiv">
                   <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Banner Width</label>
                   <div class="mt-2">
                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -88,7 +101,7 @@
                   </div>
                 </div>
 
-                <div class="sm:col-span-4">
+                <div class="sm:col-span-4" id="HeigtDiv">
                   <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Banner Height</label>
                   <div class="mt-2">
                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -97,17 +110,18 @@
                   </div>
                 </div>
 
-                <div class="sm:col-span-4">
+                <div class="sm:col-span-4" id="BannerDivContainer">
                   <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Banner Ad would be shown below</label>
-                  <div class="overflow-hidden" style="border: 1px dotted grey" id="bannerAdContainer"></div>
+                  <div class="overflow-hidden" style="border: 1px dotted grey; overflow: hidden;" id="bannerAdContainer"></div>
+
                 </div>
                 
                 <div class="sm:col-span-4">
                   <div class="flex items-center justify-end gap-x-6"></div>
-                    <button type="button" 
+                    <button type="button" id="bannerLoadButton" 
                       class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       onclick="loadBanner()">Load Banner Ad</button>
-                    <button type="button"
+                    <button type="button" id="InterstitialLoadButton" 
                       class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       onclick="loadInterstitialAd()">Load Interstitial Ad</button>
                   </div>
@@ -126,5 +140,66 @@
 
   <script src="https://g.glance-cdn.com/public/content/assets/other/mwc_v2.2.0.js"></script>
   <script src="./Inmobi Library_files/script.js"></script>
+  <script>
+
+    // Define the JSON model object
+const jsonModel = {
+  banner: {
+    adUnitId: "06053301-b3f5-4a8d-bb75-12ceb0e957d9",
+    width: 320,
+    height: 50
+  },
+  interstitial: {
+    adUnitId: "f1c360d7-9217-4940-a6bd-7f14d64e020b"
+    // more interstitial configuration options
+  },
+  rewarded: {
+    adUnitId: "d335fe1e-fa1c-47dd-bad2-732f427c3059"
+    // more rewarded configuration options
+  }
+};
+
+// Convert the JSON model object to a JSON string
+const jsonString = JSON.stringify(jsonModel);
+
+// Output the JSON string
+console.log(jsonString);
+
+    function updateAdType() {
+      var adType = document.getElementById("adType").value;
+
+      // Hide all configuration options
+      var adUnitId = document.getElementById("adUnitId")
+     
+
+      // Show the selected ad type configuration
+      if (adType === "banner") {
+        adUnitId.value = jsonModel.banner.adUnitId
+        document.getElementById("bannerLoadButton").hidden = false
+        document.getElementById("InterstitialLoadButton").hidden = true
+        document.getElementById("WidthDiv").hidden = false
+        document.getElementById("HeigtDiv").hidden = false
+        document.getElementById("BannerDivContainer").hidden = false
+      } else if (adType === "interstitial") {
+        adUnitId.value = jsonModel.interstitial.adUnitId
+        document.getElementById("bannerLoadButton").hidden = true
+        document.getElementById("InterstitialLoadButton").hidden = false
+        document.getElementById("WidthDiv").hidden = true
+        document.getElementById("HeigtDiv").hidden = true
+        document.getElementById("BannerDivContainer").hidden = true
+      } else if (adType === "rewarded") {
+        adUnitId.value = jsonModel.rewarded.adUnitId
+        document.getElementById("bannerLoadButton").hidden = true
+        document.getElementById("InterstitialLoadButton").hidden = false
+        document.getElementById("WidthDiv").hidden = true
+        document.getElementById("HeigtDiv").hidden = true
+        document.getElementById("BannerDivContainer").hidden = true
+
+      }
+    }
+
+    document.getElementById("adType").addEventListener("change", updateAdType);
+ updateAdType()
+  </script>
 </body>
 </html>
