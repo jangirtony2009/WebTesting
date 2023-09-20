@@ -95,7 +95,7 @@
                   <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Banner Width</label>
                   <div class="mt-2">
                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      <input type="nukber" name="width" id="width" autocomplete="width" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" value="320">
+                      <input type="number" name="width" id="width" autocomplete="width" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" value="320">
                     </div>
                   </div>
                 </div>
@@ -104,7 +104,27 @@
                   <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Banner Height</label>
                   <div class="mt-2">
                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      <input type="nukber" name="height" id="height" autocomplete="height" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" value="50">
+                      <input type="number" name="height" id="height" autocomplete="height" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" value="50">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-4">
+                  <label for="lmtid" class="block text-sm font-medium leading-6 text-gray-900">Select LMT Value</label>
+                   <div class="mt-2">
+                      <select id="lmtval" name="lmtval" class="block rounded-md p-1 text-gray-800 ring-1 ring-inset ring-gray-300">
+                        <option class="text-gray-700 block px-4 py-2 text-sm" value="1">1</option>
+                        <option class="text-gray-700 block px-4 py-2 text-sm" value="0">0</option>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="sm:col-span-4" id="useragentdiv">
+                  <label for="useragent" class="block text-sm font-medium leading-6 text-gray-900">User Agent</label>
+                  <div class="mt-2">
+                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                      <input type="text" name="uagent" id="uagent" autocomplete="uagent" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" value="Mozilla/5.0 (Linux; Android 13; Pixel 4 XL Build/TP1A.221005.002.B2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/101.0.4951.74 Mobile Safari/537.36" readonly>
+                      <p id="error_message"></p>
                     </div>
                   </div>
                 </div>
@@ -112,7 +132,6 @@
                 <div class="sm:col-span-4" id="BannerDivContainer">
                   <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Banner Ad would be shown below</label>
                   <div class="overflow-hidden" style="border: 1px dotted grey; overflow: hidden;" id="bannerAdContainer"></div>
-
                 </div>
                 
                 <div class="sm:col-span-4">

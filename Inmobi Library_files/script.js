@@ -21,6 +21,7 @@ let adInstances = [];
 
 function loadInterstitialAd() {
   const config = getMockConfig();
+  //console.log(config)
   const adInstance = mesonWebClient.getInterstitialAd(config);
   adInstance?.load();
 
@@ -53,6 +54,7 @@ function loadInterstitialAd() {
 function loadBanner() {
   updateBannerConatiner()
   const config = getMockConfig();
+  //console.log(config)
   const adInstance = mesonWebClient.getBannerAd(config);
   adInstance?.load();
 
@@ -81,15 +83,16 @@ function getMockConfig() {
   return {
     adUnitId: document.getElementById("adUnitId").value,
     gpid: document.getElementById("gpid").value,
-    userAgent: window.navigator.userAgent,
+    userAgent: document.getElementById("uagent").value,
     bundleId: document.getElementById("bundleId").value,
     refreshInterval: 0,
     overRideRedirect: false,
     width: parseInt(document.getElementById("width").value),
     height: parseInt(document.getElementById("height").value),
+
     containerId: 'bannerAdContainer',
     device: {
-      lmt: 1,
+      lmt: parseInt(document.getElementById("lmtval").value),
     },
   }}
 
