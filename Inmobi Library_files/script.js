@@ -1,11 +1,20 @@
-// Method to initialize the MesonWebSDK
+// Global variables and event listeners declaration
 
+var req_ctr = 0;
+var req_no = 1;
+const form = document.getElementById("myform");
+function handleForm(event) { 
+  event.preventDefault(); 
+} 
+form.addEventListener('submit', handleForm);
+
+
+// Method to initialize the MesonWebSDK
   const mesonWebClient = new MesonWebSDK({
     appId: '',
     source: 'glance',
     // mode: 'direct',
   });
-
   mesonWebClient.init();
 
   mesonWebClient.onSDKInitSuccess(() => {
@@ -24,16 +33,21 @@ function loadInterstitialAd() {
   //console.log(config)
   const adInstance = mesonWebClient.getInterstitialAd(config);
   adInstance?.load();
-
+  req_ctr ++ ;
   adInstance?.onAdLoadSucceeded((requestId) => {
     console.log('onAdLoadSucceeded!!', requestId);
     // Optionally, you can call the showInterstitialAd function here if desired
-    document.getElementById("console-log").innerHTML += `Interstitial : Ad Loaded!!! Yipeee!! ${JSON.stringify(requestId)}<br>`;
+    document.getElementById("console-log").innerHTML += `Interstitial : Ad Loaded!!! Yipeee!! ${JSON.stringify(requestId)}<br>
+    Number of requests tried: ${req_ctr}<br>`;
+    //console.log('Number of requests : ', req_ctr);
+    req_ctr = 0;
     adInstance.show();
   });
 
    adInstance?.onAdLoadFailed((error) => {
+    console.log('onAdLoadFailed!', requestId);
       document.getElementById("console-log").innerHTML += `Interstitial : Load failed received on client side: ${JSON.stringify(error)}<br>`;
+      req_ctr < req_no && loadInterstitialAd()
     });
 
     adInstance?.onAdClicked((requestId) => {
@@ -51,21 +65,34 @@ function loadInterstitialAd() {
   adInstances.push(adInstance);
 }
 
+function check() {
+  const form = document.getElementById("myform");
+  if(form.checkValidity()){
+    req_no = document.getElementById("noreq").value;
+    console.log("no of req: ",req_no)
+    req_ctr = 0;
+    document.getElementById("adType").value === 'banner' ? loadBanner() : loadInterstitialAd()
+  }
+}
 function loadBanner() {
   updateBannerConatiner()
   const config = getMockConfig();
-  //console.log(config)
-  const adInstance = mesonWebClient.getBannerAd(config);
+  var adInstance = mesonWebClient.getBannerAd(config);
+  console.log(adInstance)
   adInstance?.load();
-
+   req_ctr ++ ;
   adInstance?.onAdLoadSucceeded((requestId) => {
     console.log('onAdLoadSucceeded!!', requestId);
     // Optionally, you can call the showInterstitialAd function here if desired
-    document.getElementById("console-log").innerHTML += `Banner :  Ad Loaded!!! Yipeee!! ${JSON.stringify(requestId)}<br>`;
+    document.getElementById("console-log").innerHTML += `Banner :  Ad Loaded!!! Yipeee!! ${JSON.stringify(requestId)}<br>
+    Number of requests tried: ${req_ctr}<br>`;
+    req_ctr = 0;
   });
 
    adInstance?.onAdLoadFailed((error) => {
+    console.log('onAdLoadFailed!');
       document.getElementById("console-log").innerHTML += `Banner : Load failed received on client side: ${JSON.stringify(error)}<br>`;
+      req_ctr < req_no && loadBanner()
     });
 
     adInstance?.onAdClicked((requestId) => {
@@ -76,7 +103,6 @@ function loadBanner() {
       document.getElementById("console-log").innerHTML += `Banner : onAdImpression ==> ${JSON.stringify(info)}<br>`;
     });
 }
-
 
 // Helper method to get the mock configuration
 function getMockConfig() {
